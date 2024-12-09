@@ -14,7 +14,7 @@ const SpoilerCard: React.FC<
     toPath?: string;
   }> &
     CardProps
-> = ({ children, releaseTime, toPath }) => {
+> = ({ children, releaseTime, toPath, ...props }) => {
   const history = useHistory();
 
   const [isSpoiler, setIsSpoiler] = useState(false);
@@ -53,6 +53,7 @@ const SpoilerCard: React.FC<
     <Card
       sx={{ cursor: "pointer", position: "relative" }}
       onClick={onCardClick}
+      {...props}
     >
       {children}
       {isSpoiler && (
