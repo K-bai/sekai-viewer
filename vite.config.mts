@@ -20,7 +20,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     esbuildOptions: {
-      // @ts-expect-error plugin is not typed
       plugins: [nodeModulesPolyfillPlugin()],
     },
   },
