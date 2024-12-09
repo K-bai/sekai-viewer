@@ -19,8 +19,8 @@ import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../stores/root";
 import AgendaBox from "../../components/styled/AgendaBox";
 import AgendaPaper from "../../components/styled/AgendaPaper";
-import LinkNoDecoration from "../../components/styled/LinkNoDecoration";
 import ChipDifficulty from "../../components/styled/ChipDifficulty";
+import SpoilerCard from "../../components/helpers/SpoilerCard";
 
 const AgendaView: React.FC<{ data?: IMusicInfo }> = observer(({ data }) => {
   const { path } = useRouteMatch();
@@ -134,78 +134,80 @@ const AgendaView: React.FC<{ data?: IMusicInfo }> = observer(({ data }) => {
     );
   }
   return (
-    <LinkNoDecoration to={path + "/" + data.id}>
-      <AgendaBox>
-        <AgendaPaper>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item xs={3} sm={2} md={1}>
-              <Image
-                src={jacket}
-                alt={getTranslated(`music_titles:${data.id}`, data.title)}
-                // aspectRatio={1}
-                bgColor=""
-              ></Image>
-            </Grid>
-            <Grid item xs={9} sm={2}>
-              <Grid container direction="column" spacing={1}>
-                <Grid item>
-                  <SpoilerTag releaseTime={new Date(data.publishedAt)} />
-                </Grid>
-                <Grid item>
-                  <ContentTrans
-                    contentKey={`music_titles:${data.id}`}
-                    original={data.title}
-                    originalProps={{
-                      variant: "subtitle1",
-                    }}
-                    translatedProps={{
-                      variant: "subtitle1",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={3} md={4}>
-              <Grid item>
-                <Grid container direction="row" spacing={1}>
-                  {diffis.map((elem) => (
-                    <Grid item xs={2} key={`diff-${elem.id}`}>
-                      <ChipDifficulty
-                        difficulty={elem.musicDifficulty}
-                        value={String(elem.playLevel)}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              {data.categories.map((cat) => (
-                <Chip
-                  label={t(
-                    `music:categoryType.${
-                      typeof cat === "string" ? cat : cat.musicCategoryName
-                    }`
-                  )}
-                  key={typeof cat === "string" ? cat : cat.musicCategoryName}
-                ></Chip>
-              ))}
-            </Grid>
-            {musicVocal && (
-              <Grid item xs={12} sm={3} md={3}>
-                <Grid container spacing={2} alignItems="center">
-                  {musicVocal.map((_, idx) => (
-                    <Grid item key={idx}>
-                      {getVocalCharaIcons(idx)}
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-            )}
+    <SpoilerCard
+      releaseTime={new Date(data.publishedAt)}
+      toPath={path + "/" + data.id}
+      component={AgendaBox}
+    >
+      <AgendaPaper>
+        <Grid container alignItems="center" spacing={1}>
+          <Grid item xs={3} sm={2} md={1}>
+            <Image
+              src={jacket}
+              alt={getTranslated(`music_titles:${data.id}`, data.title)}
+              // aspectRatio={1}
+              bgColor=""
+            ></Image>
           </Grid>
-        </AgendaPaper>
-      </AgendaBox>
-    </LinkNoDecoration>
+          <Grid item xs={9} sm={2}>
+            <Grid container direction="column" spacing={1}>
+              <Grid item>
+                <SpoilerTag releaseTime={new Date(data.publishedAt)} />
+              </Grid>
+              <Grid item>
+                <ContentTrans
+                  contentKey={`music_titles:${data.id}`}
+                  original={data.title}
+                  originalProps={{
+                    variant: "subtitle1",
+                  }}
+                  translatedProps={{
+                    variant: "subtitle1",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={3} md={4}>
+            <Grid item>
+              <Grid container direction="row" spacing={1}>
+                {diffis.map((elem) => (
+                  <Grid item xs={2} key={`diff-${elem.id}`}>
+                    <ChipDifficulty
+                      difficulty={elem.musicDifficulty}
+                      value={String(elem.playLevel)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            {data.categories.map((cat) => (
+              <Chip
+                label={t(
+                  `music:categoryType.${
+                    typeof cat === "string" ? cat : cat.musicCategoryName
+                  }`
+                )}
+                key={typeof cat === "string" ? cat : cat.musicCategoryName}
+              ></Chip>
+            ))}
+          </Grid>
+          {musicVocal && (
+            <Grid item xs={12} sm={3} md={3}>
+              <Grid container spacing={2} alignItems="center">
+                {musicVocal.map((_, idx) => (
+                  <Grid item key={idx}>
+                    {getVocalCharaIcons(idx)}
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          )}
+        </Grid>
+      </AgendaPaper>
+    </SpoilerCard>
   );
 });
 
