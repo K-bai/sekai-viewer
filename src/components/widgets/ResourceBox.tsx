@@ -113,7 +113,7 @@ const ResourceBox: React.FC<{
               />
             ) : detail.resourceType === "stamp" ? (
               <Image
-                src={`${assetUrl.minio.jp}/stamp/stamp${String(
+                src={`${assetUrl.minio[region]}/stamp/stamp${String(
                   detail.resourceId
                 ).padStart(4, "0")}_rip/stamp${String(
                   detail.resourceId
