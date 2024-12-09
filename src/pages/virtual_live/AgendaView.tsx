@@ -6,7 +6,6 @@ import { IVirtualLiveInfo } from "../../types.d";
 import { getRemoteAssetURL } from "../../utils";
 import { useAssetI18n } from "../../utils/i18n";
 import { ContentTrans } from "../../components/helpers/ContentTrans";
-import SpoilerTag from "../../components/widgets/SpoilerTag";
 import Image from "mui-image";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../stores/root";
@@ -90,17 +89,6 @@ const AgendaView: React.FC<{ data?: IVirtualLiveInfo }> = observer(
             </Grid>
             <Grid item xs={12} md={8}>
               <Grid container direction="column" columnSpacing={1}>
-                <Grid item>
-                  <SpoilerTag
-                    releaseTime={
-                      new Date(
-                        data.virtualLiveSchedules[0]
-                          ? data.virtualLiveSchedules[0].startAt
-                          : data.startAt
-                      )
-                    }
-                  />
-                </Grid>
                 <Grid item>
                   <ContentTrans
                     contentKey={`virtualLive_name:${data.id}`}
