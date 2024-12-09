@@ -404,14 +404,7 @@ export function useProcessedScenarioData() {
         characters: [],
       };
 
-      if (
-        !chara2Ds ||
-        !chara2Ds.length ||
-        !mobCharas ||
-        !mobCharas.length ||
-        !scenarioPath
-      )
-        return ret;
+      if (!chara2Ds || !chara2Ds.length || !scenarioPath) return ret;
 
       const { data }: { data: IScenarioData } = await Axios.get(
         await getRemoteAssetURL(scenarioPath, undefined, "minio", region),
@@ -462,7 +455,6 @@ export function useProcessedScenarioData() {
         });
       }
 
-      // eslint-disable-next-line array-callback-return
       ret.characters = AppearCharacters.map((ap) => {
         const chara2d = chara2Ds.find((ch) => ch.id === ap.Character2dId);
         if (!chara2d)
@@ -481,7 +473,7 @@ export function useProcessedScenarioData() {
             return {
               id: chara2d.characterId,
               name:
-                mobCharas.find((mc) => mc.id === chara2d.characterId)?.name ||
+                mobCharas?.find((mc) => mc.id === chara2d.characterId)?.name ||
                 "",
             };
           }
