@@ -251,7 +251,6 @@ const VirtualLiveList: React.FC<unknown> = observer(() => {
               {
                 agenda: {
                   xs: 12,
-                  lg: 6,
                 },
               } as const
             )[viewGridType]
