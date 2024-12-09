@@ -93,9 +93,8 @@ const VirtualLiveList: React.FC<unknown> = observer(() => {
     if (!isShowSpoiler) {
       sortedCache = sortedCache.filter(
         (vl) =>
-          (vl.virtualLiveSchedules[0]
-            ? vl.virtualLiveSchedules[0].startAt
-            : vl.startAt) <= new Date().getTime()
+          vl.startAt <= new Date().getTime() &&
+          (vl.virtualLiveSchedules.at(0)?.startAt ?? 0) <= new Date().getTime()
       );
     }
     if (sortType === "desc") {
