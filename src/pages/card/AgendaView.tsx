@@ -1,7 +1,7 @@
 import { Typography, Grid } from "@mui/material";
 import { Skeleton } from "@mui/material";
 import React from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { ICardInfo } from "../../types.d";
 import { useCharaName } from "../../utils/i18n";
 import { CardThumb } from "../../components/widgets/CardThumb";
@@ -11,6 +11,7 @@ import { cardRarityTypeToRarity } from "../../utils";
 import SvgSkeleton from "../../components/styled/SvgSkeleton";
 import AgendaBox from "../../components/styled/AgendaBox";
 import AgendaPaper from "../../components/styled/AgendaPaper";
+import SpoilerCard from "../../components/helpers/SpoilerCard";
 
 const AgendaView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
   const { path } = useRouteMatch();
@@ -57,10 +58,10 @@ const AgendaView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
     );
   }
   return (
-    <Link
-      to={path + "/" + data.id}
+    <SpoilerCard
       component={AgendaBox}
-      style={{ textDecoration: "none" }}
+      releaseTime={new Date(data.releaseAt ?? data.archivePublishedAt)}
+      toPath={path + "/" + data.id}
     >
       <AgendaPaper>
         <Grid
@@ -113,7 +114,7 @@ const AgendaView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
           </Grid>
         </Grid>
       </AgendaPaper>
-    </Link>
+    </SpoilerCard>
   );
 };
 
