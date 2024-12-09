@@ -898,6 +898,7 @@ export function useIsTouchDevice() {
 
     return () => {
       window.removeEventListener("resize", onResize);
+      setIsTouchDevice(false);
     };
   }, []);
 
