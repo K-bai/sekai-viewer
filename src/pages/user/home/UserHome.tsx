@@ -212,7 +212,7 @@ const UserHome: React.FC<unknown> = observer(() => {
                             (await getUserMetadataMe()) as IUserMetadata
                           );
                         } catch (error) {
-                          console.log(error);
+                          console.error(error);
                         }
                       }}
                     >
@@ -356,7 +356,7 @@ const UserHome: React.FC<unknown> = observer(() => {
                             (await getUserMetadataMe()) as IUserMetadata
                           );
                         } catch (error) {
-                          console.log(error);
+                          console.error(error);
                         }
                       }}
                     >

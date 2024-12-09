@@ -595,7 +595,7 @@ export function useProcessedScenarioData() {
                 type: snippet.Action,
               };
 
-              console.dir(action);
+              // console.dir(action);
             }
             break;
           default: {
@@ -693,7 +693,7 @@ export function useLocalStorage<T>(
       );
     } catch (error) {
       // A more advanced implementation would handle the error case
-      console.log(error);
+      console.error(error);
     }
   };
 

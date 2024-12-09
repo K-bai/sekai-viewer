@@ -40,14 +40,12 @@ const SpoilerCard: React.FC<
 
   const onCardClick: React.MouseEventHandler<HTMLDivElement> =
     useCallback(() => {
-      console.log("card clicked", isSpoiler, isActive, toPath);
       if (isSpoiler && !isActive) {
         return;
       }
 
       if (toPath) {
         history.push(toPath);
-        console.log("history pushed", isSpoiler, isActive, toPath);
       }
     }, [history, isActive, isSpoiler, toPath]);
 

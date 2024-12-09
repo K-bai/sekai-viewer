@@ -365,7 +365,7 @@ const Live2DView: React.FC<unknown> = () => {
 
   const handleScreenshot = useCallback(() => {
     if (stage.current && live2dModel.current) {
-      console.log(stage.current);
+      // console.log(stage.current);
       // @ts-expect-error app is private
       const app = stage.current.app as PIXI.Application;
       const region = app.stage.getBounds();

@@ -175,7 +175,7 @@ const EventPointCalc: React.FC<unknown> = () => {
       gameCharacterUnits &&
       selectedEventMode === "existed"
     ) {
-      console.log("triggered");
+      // console.log("triggered");
       const eventBonuses = eventDeckBonuses
         .filter((edb) => edb.eventId === selectedEventId)!
         .map((edb) => {
@@ -329,7 +329,7 @@ const EventPointCalc: React.FC<unknown> = () => {
 
   const calcResult = useCallback(() => {
     if (!validMetas.length || !cards || !skills || !events || !musics) {
-      console.log("Essential data not load");
+      // console.log("Essential data not load");
       return;
     }
     // console.log(musicMeta);
