@@ -1075,6 +1075,7 @@ const CardList: React.FC<unknown> = observer(() => {
               {
                 agenda: {
                   xs: 12,
+                  md: 6,
                 },
                 comfy: {
                   md: 3,

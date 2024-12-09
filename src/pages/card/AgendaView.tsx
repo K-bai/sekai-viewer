@@ -6,7 +6,6 @@ import { ICardInfo } from "../../types.d";
 import { useCharaName } from "../../utils/i18n";
 import { CardThumb } from "../../components/widgets/CardThumb";
 import { ContentTrans } from "../../components/helpers/ContentTrans";
-import SpoilerTag from "../../components/widgets/SpoilerTag";
 import { cardRarityTypeToRarity } from "../../utils";
 import SvgSkeleton from "../../components/styled/SvgSkeleton";
 import AgendaBox from "../../components/styled/AgendaBox";
@@ -73,30 +72,23 @@ const AgendaView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
           <Grid
             item
             xs={5}
-            md={4}
+            md={5}
             container
             direction="row"
             spacing={1}
             justifyContent="center"
           >
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid item xs={12} md={6}>
               <CardThumb cardId={data.id} />
             </Grid>
             {cardRarityTypeToRarity[data.cardRarityType] >= 3 ? (
-              <Grid item xs={12} md={6} lg={4}>
+              <Grid item xs={12} md={6}>
                 <CardThumb cardId={data.id} trained />
               </Grid>
             ) : null}
           </Grid>
           <Grid item xs={6} md={7}>
             <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <SpoilerTag
-                  releaseTime={
-                    new Date(data.releaseAt ?? data.archivePublishedAt)
-                  }
-                />
-              </Grid>
               <Grid item>
                 <ContentTrans
                   contentKey={`card_prefix:${data.id}`}
