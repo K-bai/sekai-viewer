@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import SpoilerTag from "../widgets/SpoilerTag";
 import { useHistory } from "react-router-dom";
+import { useIsTouchDevice } from "../../utils";
 
 const SpoilerCard: React.FC<
   PropsWithChildren<{
@@ -16,9 +17,10 @@ const SpoilerCard: React.FC<
     CardProps
 > = ({ children, releaseTime, toPath, ...props }) => {
   const history = useHistory();
+  const isTouchDevice = useIsTouchDevice();
 
   const [isSpoiler, setIsSpoiler] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  const [touchTimes, setTouchTimes] = useState(0);
 
   useEffect(() => {
     setIsSpoiler(new Date() < releaseTime);
@@ -28,26 +30,21 @@ const SpoilerCard: React.FC<
     };
   }, [releaseTime]);
 
-  const onBoxMouseOver: React.MouseEventHandler<HTMLDivElement> =
+  const onTouchEnd: React.TouchEventHandler<HTMLDivElement> =
     useCallback(() => {
-      setIsActive(true);
-    }, []);
-
-  const onBoxMouseOut: React.MouseEventHandler<HTMLDivElement> =
-    useCallback(() => {
-      setIsActive(false);
+      setTouchTimes((prev) => prev + 1);
     }, []);
 
   const onCardClick: React.MouseEventHandler<HTMLDivElement> =
     useCallback(() => {
-      if (isSpoiler && !isActive) {
+      if (isSpoiler && isTouchDevice && touchTimes < 2) {
         return;
       }
 
       if (toPath) {
         history.push(toPath);
       }
-    }, [history, isActive, isSpoiler, toPath]);
+    }, [history, isSpoiler, isTouchDevice, toPath, touchTimes]);
 
   return (
     <Card
@@ -76,8 +73,7 @@ const SpoilerCard: React.FC<
             alignItems: "center",
             justifyContent: "center",
           }}
-          onMouseOver={onBoxMouseOver}
-          onMouseOut={onBoxMouseOut}
+          onTouchEnd={onTouchEnd}
         >
           <Box>
             <SpoilerTag />
