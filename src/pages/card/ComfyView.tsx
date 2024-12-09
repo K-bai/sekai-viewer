@@ -6,10 +6,9 @@ import { ICardInfo } from "../../types.d";
 import { useCharaName } from "../../utils/i18n";
 import { CardThumb } from "../../components/widgets/CardThumb";
 import { ContentTrans } from "../../components/helpers/ContentTrans";
-import SpoilerTag from "../../components/widgets/SpoilerTag";
 import { cardRarityTypeToRarity } from "../../utils";
-import LinkNoDecoration from "../../components/styled/LinkNoDecoration";
 import SvgSkeleton from "../../components/styled/SvgSkeleton";
+import SpoilerCard from "../../components/helpers/SpoilerCard";
 
 const ComfyViewSkeleton = () => (
   <Paper
@@ -65,7 +64,10 @@ const ComfyView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
     return <ComfyViewSkeleton />;
   }
   return (
-    <LinkNoDecoration to={path + "/" + data.id}>
+    <SpoilerCard
+      releaseTime={new Date(data.releaseAt ?? data.archivePublishedAt)}
+      toPath={`${path}/${data.id}`}
+    >
       <Paper
         sx={(theme) => ({
           padding: theme.spacing(1.5),
@@ -77,6 +79,7 @@ const ComfyView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
           direction="column"
           alignItems="center"
           justifyContent="space-between"
+          rowSpacing={1}
         >
           <Grid
             item
@@ -88,8 +91,7 @@ const ComfyView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
             <Grid item xs={4}>
               <CardThumb cardId={data.id} />
             </Grid>
-            {(data.rarity || cardRarityTypeToRarity[data.cardRarityType!]) >=
-            3 ? (
+            {cardRarityTypeToRarity[data.cardRarityType] >= 3 ? (
               <Grid item xs={4}>
                 <CardThumb cardId={data.id} trained />
               </Grid>
@@ -97,15 +99,6 @@ const ComfyView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
           </Grid>
           <Grid item style={{ width: "100%" }}>
             <Grid container direction="column" rowSpacing={0.5}>
-              <Grid item>
-                <Grid container justifyContent="center">
-                  <SpoilerTag
-                    releaseTime={
-                      new Date(data.releaseAt ?? data.archivePublishedAt)
-                    }
-                  />
-                </Grid>
-              </Grid>
               <Grid item>
                 <ContentTrans
                   contentKey={`card_prefix:${data.id}`}
@@ -133,7 +126,7 @@ const ComfyView: React.FC<{ data?: ICardInfo }> = ({ data }) => {
           </Grid>
         </Grid>
       </Paper>
-    </LinkNoDecoration>
+    </SpoilerCard>
   );
 };
 
