@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.1](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.0...v1.13.1) (2024-12-09)
+
+
+### Features
+
+* **SpoilerCard:** implement touch device detection and adjust interaction logic ([3f5e94d](https://github.com/Sekai-World/sekai-viewer/commits/3f5e94d4c8437402b72d10ab99236388f7223d87))
+
+
+### Bug Fixes
+
+* **useIsTouchDevice:** reset touch device state on cleanup ([ad8a89c](https://github.com/Sekai-World/sekai-viewer/commits/ad8a89cce691c9f1a8b9e4bb41bf6fbecd0fd1fa))
+
+
+### Refactors
+
+* **vite.config:** remove unnecessary TypeScript error suppression for cleaner configuration ([a02e037](https://github.com/Sekai-World/sekai-viewer/commits/a02e03759e4e42542484bfa92500fd6fc7ef1cef))
+
 ## [1.13.0](https://github.com/Sekai-World/sekai-viewer/compare/v1.12.6...v1.13.0) (2024-12-09)
 
 
