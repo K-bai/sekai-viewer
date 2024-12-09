@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.13.0](https://github.com/Sekai-World/sekai-viewer/compare/v1.12.6...v1.13.0) (2024-12-09)
+
+
+### Features
+
+* :sparkles: spoiler card instead of simple spoiler tag ([54beccb](https://github.com/Sekai-World/sekai-viewer/commits/54beccb12d2128e6a5588fe4ad95810d4bdf36b5))
+* **AgendaView:** enhance layout with AgendaBox and AgendaPaper components ([ce0afc8](https://github.com/Sekai-World/sekai-viewer/commits/ce0afc8c724174b88b328cf96c62c41e63dec0b8))
+* **AgendaView:** integrate SpoilerCard component for improved layout and functionality ([6fb0038](https://github.com/Sekai-World/sekai-viewer/commits/6fb00388b84ac3717caa40404faae1b4dab50ca6))
+* **AgendaView:** replace Link with SpoilerCard for improved navigation and layout ([2bedee8](https://github.com/Sekai-World/sekai-viewer/commits/2bedee879668b18557355ae9892225ea6dbf67b6))
+* **AgendaView:** replace LinkNoDecoration with SpoilerCard for improved navigation and layout ([5f9ae99](https://github.com/Sekai-World/sekai-viewer/commits/5f9ae99767577cb3b3ccdbd763928a519f274dc3))
+* **card:** optimize max parameter calculation and add support for CN server ([3786ad7](https://github.com/Sekai-World/sekai-viewer/commits/3786ad7bd234cd41faee439cb0faab04009d2595))
+* **card:** replace SpoilerTag with SpoilerCard for improved display in GridView components ([4674017](https://github.com/Sekai-World/sekai-viewer/commits/46740170e68351e4f798cb5cfb99601c8b805842))
+* **ComfyView:** replace LinkNoDecoration with SpoilerCard for improved navigation and layout ([40c4cee](https://github.com/Sekai-World/sekai-viewer/commits/40c4cee494dbdfdd1d23fe9189504b52cc2a388d))
+* **comic:** add support for Chinese language assets in ComicList and GridView components ([1b898bf](https://github.com/Sekai-World/sekai-viewer/commits/1b898bfef2b95da74236ce4fcc3c9660287e4a93))
+* **comic:** add support for simplified Chinese language in ComicList component ([ecec6e1](https://github.com/Sekai-World/sekai-viewer/commits/ecec6e107af55c20ccf1b196602416a59745d93e))
+* **event:** conditionally display remaining time and progress during event ([a458bc9](https://github.com/Sekai-World/sekai-viewer/commits/a458bc9c882138dff0640f2916ef87a31af4e08f))
+* **event:** replace SpoilerTag with SpoilerCard for improved event spoiler display ([d1507be](https://github.com/Sekai-World/sekai-viewer/commits/d1507be7360cb624e2850fe1623242f6ebab805e))
+* **resources:** add support for CN region in DegreeImage and ResourceBox components ([9d8403b](https://github.com/Sekai-World/sekai-viewer/commits/9d8403b78beb14af0906924fafd6cf4901d0dea3))
+* **settings:** add support for cn server region ([c2927e6](https://github.com/Sekai-World/sekai-viewer/commits/c2927e6bfe3b62498e64e3bbec75b1ea261de33e))
+* **SpoilerCard:** spread additional props to Card component for enhanced flexibility ([9c6d09d](https://github.com/Sekai-World/sekai-viewer/commits/9c6d09d547de50257da08f28a0f4787a020afe3f))
+
+
+### Bug Fixes
+
+* **agenda:** simplify rarity check for card display logic ([c501fba](https://github.com/Sekai-World/sekai-viewer/commits/c501fbab2e38e24f5616cf84aaa710f6aaf87784))
+* **AgendaView:** adjust grid sizes for improved layout consistency ([098084f](https://github.com/Sekai-World/sekai-viewer/commits/098084f1b7c9f1ffda1dd5e653560a70b56f24e9))
+* **ResourceBox:** update asset URL to use region-specific path for stamp images ([4ba14f5](https://github.com/Sekai-World/sekai-viewer/commits/4ba14f551782b9ab5592eda139672804b9ad43a2))
+* **score:** multiroom player skill calculation ([2e57de8](https://github.com/Sekai-World/sekai-viewer/commits/2e57de8fe802487dc5566b5523d54391b84e7a98))
+* **SpoilerCard:** adjust backdrop filter and background color for improved visual clarity ([64c425a](https://github.com/Sekai-World/sekai-viewer/commits/64c425a0f7df3e85879585aca6d1023272cbe786))
+* **utils:** simplify condition checks and improve character data retrieval ([0bb9fd3](https://github.com/Sekai-World/sekai-viewer/commits/0bb9fd3d4a6c593ba2b9beb27b6847748736a3f6))
+* **VirtualLiveList:** improve filtering logic for virtual live schedules ([8f005e5](https://github.com/Sekai-World/sekai-viewer/commits/8f005e5e4e10db0ba93f5867c1ce51408fc3540d))
+* **VirtualLiveList:** remove unnecessary lg grid size for agenda layout ([9d80e14](https://github.com/Sekai-World/sekai-viewer/commits/9d80e14b18ed3de626e242af88bd109719ed16ae))
+
+
+### Refactors
+
+* **AgendaView:** remove unused SpoilerTag component for cleaner code ([2df8b74](https://github.com/Sekai-World/sekai-viewer/commits/2df8b7400fd5bb5ce76f7c1ecdb8af56acc9f483))
+* **event:** remove unused realtime event data logic and related types ([dde8f85](https://github.com/Sekai-World/sekai-viewer/commits/dde8f85641df41366e7c7774da666e977c0c0b59))
+* remove console.log statements and replace with console.error where applicable ([d30c50e](https://github.com/Sekai-World/sekai-viewer/commits/d30c50e3a40d141a7dce3d9a65f6e522eee733ff))
+* **user:** remove unused imports and adjust layout for CN region ([c7f2797](https://github.com/Sekai-World/sekai-viewer/commits/c7f27973f8d8590034a92392aa2808438cd8d8b1))
+
 ### [1.12.6](https://github.com/Sekai-World/sekai-viewer/compare/v1.12.5...v1.12.6) (2024-11-04)
 
 
