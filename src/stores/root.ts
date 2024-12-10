@@ -63,6 +63,7 @@ const initialState: IRoot = {
         contentTransMode: "both",
         displayMode: "auto",
         isShowSpoiler: false,
+        isSpoilerMosaicked: true,
         lang: "",
         languages: [],
         region: "jp",

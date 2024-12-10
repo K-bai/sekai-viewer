@@ -25,6 +25,7 @@ export const Settings = types
     contentTransMode: SettingContentTransMode,
     displayMode: SettingDisplayMode,
     isShowSpoiler: types.optional(types.boolean, false),
+    isSpoilerMosaicked: types.optional(types.boolean, true),
     lang: types.string,
     languages: types.array(LanguageModel),
     region: SettingRegion,
@@ -38,6 +39,9 @@ export const Settings = types
     },
     setIsShowSpoiler(newMode: boolean) {
       self.isShowSpoiler = newMode;
+    },
+    setIsSpoilerMosaicked(newMode: boolean) {
+      self.isSpoilerMosaicked = newMode;
     },
     setLang(newLang: string) {
       self.lang = newLang;

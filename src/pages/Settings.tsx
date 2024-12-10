@@ -90,12 +90,14 @@ const Settings = observer(() => {
       contentTransMode,
       languages,
       isShowSpoiler,
+      isSpoilerMosaicked,
       region,
       setLang,
       setDisplayMode,
       setContentTransMode,
       setLanguages,
       setIsShowSpoiler,
+      setIsSpoilerMosaicked,
       setRegion,
     },
   } = useRootStore();
@@ -264,21 +266,23 @@ const Settings = observer(() => {
             />
           </FormControl>
         </Grid>
-        {/* <Grid item>
-          <Grid container>
-            <Grid item>
-              <FormLabel>{t("common:currentRegion")}</FormLabel>
-            </Grid>
-            <Grid item>
-              <Tooltip title={t("common:regionTooltip") as string}>
-                <Box sx={{ color: "text.secondary" }}>
-                  <IconInformation />
-                </Box>
-              </Tooltip>
-            </Grid>
-          </Grid>
-          <RegionDetect />
-        </Grid> */}
+        <Grid item>
+          <FormControl component="fieldset" style={{ margin: "1% 0" }}>
+            <FormLabel component="legend">
+              {t("common:spoilerContentMosaicked")}
+            </FormLabel>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={isSpoilerMosaicked}
+                  onChange={(e, v) => setIsSpoilerMosaicked(v)}
+                  name="checkedB"
+                />
+              }
+              label={t("common:show") as string}
+            />
+          </FormControl>
+        </Grid>
       </Grid>
     </Fragment>
   );
