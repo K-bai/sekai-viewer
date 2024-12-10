@@ -1,13 +1,16 @@
-import { Box, Card, CardProps } from "@mui/material";
+import { Box, Card, CardProps, SxProps, Theme } from "@mui/material";
 import React, {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import SpoilerTag from "../widgets/SpoilerTag";
 import { useHistory } from "react-router-dom";
 import { useIsTouchDevice } from "../../utils";
+import { observer } from "mobx-react-lite";
+import { useRootStore } from "../../stores/root";
 
 const SpoilerCard: React.FC<
   PropsWithChildren<{
@@ -16,6 +19,9 @@ const SpoilerCard: React.FC<
   }> &
     CardProps
 > = ({ children, releaseTime, toPath, ...props }) => {
+  const {
+    settings: { isSpoilerMosaicked },
+  } = useRootStore();
   const history = useHistory();
   const isTouchDevice = useIsTouchDevice();
 
@@ -46,6 +52,35 @@ const SpoilerCard: React.FC<
       }
     }, [history, isSpoiler, isTouchDevice, toPath, touchTimes]);
 
+  const sxSpoilerBox = useMemo(() => {
+    let sx: SxProps<Theme> = {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 1,
+      display: "flex",
+    };
+
+    if (isSpoilerMosaicked) {
+      sx = {
+        ...sx,
+        backdropFilter: "blur(20px)",
+        backgroundColor: "rgba(255, 255, 255, 0.7)",
+        transition: "opacity .3s ease",
+        opacity: 1,
+        "&:hover": {
+          opacity: 0,
+        },
+        alignItems: "center",
+        justifyContent: "center",
+      };
+    }
+
+    return sx;
+  }, []);
+
   return (
     <Card
       sx={{ cursor: "pointer", position: "relative" }}
@@ -54,27 +89,7 @@ const SpoilerCard: React.FC<
     >
       {children}
       {isSpoiler && (
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backdropFilter: "blur(20px)",
-            backgroundColor: "rgba(255, 255, 255, 0.7)",
-            transition: "opacity .3s ease",
-            zIndex: 1,
-            opacity: 1,
-            "&:hover": {
-              opacity: 0,
-            },
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onTouchEnd={onTouchEnd}
-        >
+        <Box sx={sxSpoilerBox} onTouchEnd={onTouchEnd}>
           <Box>
             <SpoilerTag />
           </Box>
@@ -84,4 +99,4 @@ const SpoilerCard: React.FC<
   );
 };
 
-export default SpoilerCard;
+export default observer(SpoilerCard);
