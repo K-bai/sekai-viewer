@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.2](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.1...v1.13.2) (2024-12-10)
+
+
+### Features
+
+* **Settings:** add spoiler content mosaicked option in settings ([df544c3](https://github.com/Sekai-World/sekai-viewer/commits/df544c3436f8dfe12ade6dfed56a255f7d9bde88))
+* **SpoilerCard:** integrate mobx for spoiler mosaicking and optimize styles ([b953656](https://github.com/Sekai-World/sekai-viewer/commits/b953656b3907aa90370a845384d2c6fdecd741d3))
+
+
+### Bug Fixes
+
+* **Live2D:** update motion name validation to include 'sub_rival' prefix ([209266c](https://github.com/Sekai-World/sekai-viewer/commits/209266cd58160991cabce8bbf363ca1d194fefff))
+* **SpoilerCard:** update click handler to include isSpoilerMosaicked condition ([9c9e457](https://github.com/Sekai-World/sekai-viewer/commits/9c9e457abd0c455bff9cbdc2d626e4f2cdf4b6e7))
+
+
+### Refactors
+
+* **AgendaView:** remove unused SpoilerTag component from AgendaView ([9fa5894](https://github.com/Sekai-World/sekai-viewer/commits/9fa589432d526b3b02ff6bf269e3b9f5264ee0e9))
+
 ### [1.13.1](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.0...v1.13.1) (2024-12-09)
 
 
