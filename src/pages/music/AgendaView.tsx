@@ -12,7 +12,6 @@ import {
 import { getRemoteAssetURL, useCachedData } from "../../utils";
 import { useAssetI18n } from "../../utils/i18n";
 import { ContentTrans } from "../../components/helpers/ContentTrans";
-import SpoilerTag from "../../components/widgets/SpoilerTag";
 import Image from "mui-image";
 import { charaIcons } from "../../utils/resources";
 import { observer } from "mobx-react-lite";
@@ -151,9 +150,6 @@ const AgendaView: React.FC<{ data?: IMusicInfo }> = observer(({ data }) => {
           </Grid>
           <Grid item xs={9} sm={2}>
             <Grid container direction="column" spacing={1}>
-              <Grid item>
-                <SpoilerTag releaseTime={new Date(data.publishedAt)} />
-              </Grid>
               <Grid item>
                 <ContentTrans
                   contentKey={`music_titles:${data.id}`}
