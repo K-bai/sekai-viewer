@@ -43,14 +43,21 @@ const SpoilerCard: React.FC<
 
   const onCardClick: React.MouseEventHandler<HTMLDivElement> =
     useCallback(() => {
-      if (isSpoiler && isTouchDevice && touchTimes < 2) {
+      if (isSpoiler && isTouchDevice && isSpoilerMosaicked && touchTimes < 2) {
         return;
       }
 
       if (toPath) {
         history.push(toPath);
       }
-    }, [history, isSpoiler, isTouchDevice, toPath, touchTimes]);
+    }, [
+      history,
+      isSpoiler,
+      isSpoilerMosaicked,
+      isTouchDevice,
+      toPath,
+      touchTimes,
+    ]);
 
   const sxSpoilerBox = useMemo(() => {
     let sx: SxProps<Theme> = {
