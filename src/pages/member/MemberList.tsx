@@ -2,13 +2,13 @@ import { Grid, styled } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useRouteMatch } from "react-router-dom";
-import { IGameChara, IUnitProfile } from "../types.d";
-import { getRemoteAssetURL, useCachedData } from "../utils";
-import { UnitLogoMap } from "../utils/resources";
+import { IGameChara, IUnitProfile } from "../../types";
+import { getRemoteAssetURL, useCachedData } from "../../utils";
+import { UnitLogoMap } from "../../utils/resources";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../stores/root";
-import TypographyHeader from "../components/styled/TypographyHeader";
-import ContainerContent from "../components/styled/ContainerContent";
+import { useRootStore } from "../../stores/root";
+import TypographyHeader from "../../components/styled/TypographyHeader";
+import ContainerContent from "../../components/styled/ContainerContent";
 
 const MemberSelectImg = styled("img")`
   width: 100%;

@@ -20,24 +20,24 @@ import {
   ICharaProfile,
   ICardInfo,
   IUnitProfile,
-} from "../types.d";
-import { getRemoteAssetURL, useCachedData } from "../utils";
-import { UnitLogoMap } from "../utils/resources";
-import { CardThumb } from "../components/widgets/CardThumb";
-import ColorPreview from "../components/helpers/ColorPreview";
+} from "../../types.d";
+import { getRemoteAssetURL, useCachedData } from "../../utils";
+import { UnitLogoMap } from "../../utils/resources";
+import { CardThumb } from "../../components/widgets/CardThumb";
+import ColorPreview from "../../components/helpers/ColorPreview";
 import {
   CharaNameTrans,
   ContentTrans,
-} from "../components/helpers/ContentTrans";
+} from "../../components/helpers/ContentTrans";
 import { OpenInNew } from "@mui/icons-material";
-import { useCharaName } from "../utils/i18n";
+import { useCharaName } from "../../utils/i18n";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "../stores/root";
-import TypographyHeader from "../components/styled/TypographyHeader";
-import ContainerContent from "../components/styled/ContainerContent";
-import GridOut from "../components/styled/GridOut";
-import LinkNoDecoration from "../components/styled/LinkNoDecoration";
-import TabPanelPadding from "../components/styled/TabPanelPadding";
+import { useRootStore } from "../../stores/root";
+import TypographyHeader from "../../components/styled/TypographyHeader";
+import ContainerContent from "../../components/styled/ContainerContent";
+import GridOut from "../../components/styled/GridOut";
+import LinkNoDecoration from "../../components/styled/LinkNoDecoration";
+import TabPanelPadding from "../../components/styled/TabPanelPadding";
 
 const UnitLogoImg = styled("img")`
   max-height: 64px;
