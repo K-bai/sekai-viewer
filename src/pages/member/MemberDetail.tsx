@@ -1,12 +1,21 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
   Card,
   CardMedia,
+  Dialog,
+  DialogContent,
+  DialogProps,
+  DialogTitle,
   Divider,
   Grid,
   Paper,
   styled,
   Tab,
   Tabs,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { TabContext } from "@mui/lab";
@@ -20,8 +29,11 @@ import {
   ICharaProfile,
   ICardInfo,
   IUnitProfile,
+  ICostume3D,
+  ServerRegion,
+  ICompactCostume3D,
 } from "../../types.d";
-import { getRemoteAssetURL, useCachedData } from "../../utils";
+import { getRemoteAssetURL, useCachedData, useCompactData } from "../../utils";
 import { UnitLogoMap } from "../../utils/resources";
 import { CardThumb } from "../../components/widgets/CardThumb";
 import ColorPreview from "../../components/helpers/ColorPreview";
@@ -29,7 +41,7 @@ import {
   CharaNameTrans,
   ContentTrans,
 } from "../../components/helpers/ContentTrans";
-import { OpenInNew } from "@mui/icons-material";
+import { ExpandMore, OpenInNew } from "@mui/icons-material";
 import { useCharaName } from "../../utils/i18n";
 import { observer } from "mobx-react-lite";
 import { useRootStore } from "../../stores/root";
@@ -38,6 +50,7 @@ import ContainerContent from "../../components/styled/ContainerContent";
 import GridOut from "../../components/styled/GridOut";
 import LinkNoDecoration from "../../components/styled/LinkNoDecoration";
 import TabPanelPadding from "../../components/styled/TabPanelPadding";
+import ImageWrapper from "../../components/helpers/ImageWrapper";
 
 const UnitLogoImg = styled("img")`
   max-height: 64px;
@@ -47,6 +60,391 @@ const UnitLogoLargeImg = styled("img")`
   max-height: 64px;
   max-width: 100%;
 `;
+
+const MemberCostumeDialog: React.FC<
+  { costumes: ICostume3D[]; region: ServerRegion } & DialogProps
+> = ({ costumes, region, open = false, ...props }) => {
+  return costumes.length ? (
+    <Dialog open={open} fullWidth maxWidth="sm" {...props}>
+      <DialogTitle>{costumes[0].name}</DialogTitle>
+      <DialogContent>
+        <GridOut container direction="row" spacing={2}>
+          {costumes.map((cc) => (
+            <Grid item xs={3} md={2} key={"costume-" + cc.id}>
+              <ImageWrapper
+                src={`thumbnail/costume_rip/${cc.assetbundleName}.webp`}
+                region={region}
+              />
+            </Grid>
+          ))}
+        </GridOut>
+      </DialogContent>
+    </Dialog>
+  ) : null;
+};
+
+const MemberCostumeAccordion: React.FC<{
+  charaId: number;
+  region: ServerRegion;
+}> = ({ charaId, region }) => {
+  const { t } = useTranslation();
+
+  const [costume3ds] = useCachedData<ICostume3D>("costume3ds");
+  const [compactCostume3ds] =
+    useCompactData<ICompactCostume3D>("compactCostume3ds");
+
+  const [charaCostumes, setCharaCostumes] = useState<ICostume3D[]>([]);
+  const [isMemberCostumeOpen, setIsMemberCostumeOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogCostumes, setDialogCostumes] = useState<ICostume3D[]>([]);
+
+  useEffect(() => {
+    if (compactCostume3ds) {
+      const costumes: ICostume3D[] = [];
+      compactCostume3ds.characterId.forEach((id, idx) => {
+        if (
+          id === charaId &&
+          compactCostume3ds.__ENUM__.partType[
+            compactCostume3ds.partType[idx]
+          ] === "body"
+        ) {
+          costumes.push({
+            id: compactCostume3ds.id[idx],
+            seq: compactCostume3ds.seq[idx],
+            costume3dGroupId: compactCostume3ds.costume3dGroupId[idx],
+            costume3dType:
+              compactCostume3ds.__ENUM__.costume3dType[
+                compactCostume3ds.costume3dType[idx]
+              ],
+            name: compactCostume3ds.name[idx],
+            partType:
+              compactCostume3ds.__ENUM__.partType[
+                compactCostume3ds.partType[idx]
+              ],
+            colorId: compactCostume3ds.colorId[idx],
+            colorName: compactCostume3ds.colorName[idx],
+            characterId: charaId,
+            costume3dRarity:
+              compactCostume3ds.__ENUM__.costume3dRarity[
+                compactCostume3ds.costume3dRarity[idx]
+              ],
+            assetbundleName: compactCostume3ds.assetbundleName[idx],
+            designer: compactCostume3ds.designer[idx],
+            publishedAt: compactCostume3ds.publishedAt[idx] || 0,
+            archiveDisplayType:
+              compactCostume3ds.archiveDisplayType[idx] !== null
+                ? compactCostume3ds.__ENUM__.archiveDisplayType[
+                    compactCostume3ds.archiveDisplayType[idx]
+                  ]
+                : "",
+            archivePublishedAt: compactCostume3ds.archivePublishedAt[idx] || 0,
+          });
+        }
+      });
+      setCharaCostumes(costumes);
+    } else if (costume3ds?.length) {
+      setCharaCostumes(
+        costume3ds.filter(
+          (c3d) => c3d.characterId === charaId && c3d.partType === "body"
+        )
+      );
+    }
+  }, [charaId, costume3ds, compactCostume3ds]);
+
+  return (
+    <Fragment>
+      <Accordion
+        expanded={isMemberCostumeOpen}
+        onChange={(e, state) => setIsMemberCostumeOpen(state)}
+        slotProps={{ transition: { unmountOnExit: true } }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <TypographyHeader>{t("common:costume")}</TypographyHeader>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GridOut container direction="row" spacing={2}>
+            {charaCostumes
+              .filter((cc) => cc.colorId === 1)
+              .map((cc) => (
+                <Grid item xs={3} md={2} lg={1} key={"costume-" + cc.id}>
+                  <Tooltip title={cc.name} placement="top">
+                    <Box
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setIsDialogOpen(true);
+                        setDialogCostumes(
+                          charaCostumes.filter(
+                            (c3d) =>
+                              cc.costume3dGroupId === c3d.costume3dGroupId
+                          )
+                        );
+                      }}
+                    >
+                      <ImageWrapper
+                        src={`thumbnail/costume_rip/${cc.assetbundleName}.webp`}
+                        region={region}
+                      />
+                    </Box>
+                  </Tooltip>
+                </Grid>
+              ))}
+          </GridOut>
+        </AccordionDetails>
+      </Accordion>
+      <MemberCostumeDialog
+        open={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+          setDialogCostumes([]);
+        }}
+        costumes={dialogCostumes}
+        region={region}
+      />
+    </Fragment>
+  );
+};
+
+const MemberHairAccordion: React.FC<{
+  charaId: number;
+  region: ServerRegion;
+}> = ({ charaId, region }) => {
+  const { t } = useTranslation();
+
+  const [costume3ds] = useCachedData<ICostume3D>("costume3ds");
+  const [compactCostume3ds] =
+    useCompactData<ICompactCostume3D>("compactCostume3ds");
+
+  const [charaCostumes, setCharaCostumes] = useState<ICostume3D[]>([]);
+  const [isMemberCostumeOpen, setIsMemberCostumeOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogCostumes, setDialogCostumes] = useState<ICostume3D[]>([]);
+
+  useEffect(() => {
+    if (compactCostume3ds) {
+      const costumes: ICostume3D[] = [];
+      compactCostume3ds.characterId.forEach((id, idx) => {
+        if (
+          id === charaId &&
+          compactCostume3ds.__ENUM__.partType[
+            compactCostume3ds.partType[idx]
+          ] === "hair"
+        ) {
+          costumes.push({
+            id: compactCostume3ds.id[idx],
+            seq: compactCostume3ds.seq[idx],
+            costume3dGroupId: compactCostume3ds.costume3dGroupId[idx],
+            costume3dType:
+              compactCostume3ds.__ENUM__.costume3dType[
+                compactCostume3ds.costume3dType[idx]
+              ],
+            name: compactCostume3ds.name[idx],
+            partType:
+              compactCostume3ds.__ENUM__.partType[
+                compactCostume3ds.partType[idx]
+              ],
+            colorId: compactCostume3ds.colorId[idx],
+            colorName: compactCostume3ds.colorName[idx],
+            characterId: charaId,
+            costume3dRarity:
+              compactCostume3ds.__ENUM__.costume3dRarity[
+                compactCostume3ds.costume3dRarity[idx]
+              ],
+            assetbundleName: compactCostume3ds.assetbundleName[idx],
+            designer: compactCostume3ds.designer[idx],
+            publishedAt: compactCostume3ds.publishedAt[idx] || 0,
+            archiveDisplayType:
+              compactCostume3ds.archiveDisplayType[idx] !== null
+                ? compactCostume3ds.__ENUM__.archiveDisplayType[
+                    compactCostume3ds.archiveDisplayType[idx]
+                  ]
+                : "",
+            archivePublishedAt: compactCostume3ds.archivePublishedAt[idx] || 0,
+          });
+        }
+      });
+      setCharaCostumes(costumes);
+    } else if (costume3ds?.length) {
+      setCharaCostumes(
+        costume3ds.filter(
+          (c3d) => c3d.characterId === charaId && c3d.partType === "hair"
+        )
+      );
+    }
+  }, [charaId, costume3ds, compactCostume3ds]);
+
+  return (
+    <Fragment>
+      <Accordion
+        expanded={isMemberCostumeOpen}
+        onChange={(e, state) => setIsMemberCostumeOpen(state)}
+        slotProps={{ transition: { unmountOnExit: true } }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <TypographyHeader>{t("common:hair")}</TypographyHeader>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GridOut container direction="row" spacing={2}>
+            {charaCostumes
+              .filter((cc) => cc.colorId === 1)
+              .map((cc) => (
+                <Grid item xs={3} md={2} lg={1} key={"costume-" + cc.id}>
+                  <Tooltip title={cc.name} placement="top">
+                    <Box
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setIsDialogOpen(true);
+                        setDialogCostumes(
+                          charaCostumes.filter(
+                            (c3d) =>
+                              cc.costume3dGroupId === c3d.costume3dGroupId
+                          )
+                        );
+                      }}
+                    >
+                      <ImageWrapper
+                        src={`thumbnail/costume_rip/${cc.assetbundleName}.webp`}
+                        region={region}
+                      />
+                    </Box>
+                  </Tooltip>
+                </Grid>
+              ))}
+          </GridOut>
+        </AccordionDetails>
+      </Accordion>
+      <MemberCostumeDialog
+        open={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+          setDialogCostumes([]);
+        }}
+        costumes={dialogCostumes}
+        region={region}
+      />
+    </Fragment>
+  );
+};
+
+const MemberHeadAccordion: React.FC<{
+  charaId: number;
+  region: ServerRegion;
+}> = ({ charaId, region }) => {
+  const { t } = useTranslation();
+
+  const [costume3ds] = useCachedData<ICostume3D>("costume3ds");
+  const [compactCostume3ds] =
+    useCompactData<ICompactCostume3D>("compactCostume3ds");
+
+  const [charaCostumes, setCharaCostumes] = useState<ICostume3D[]>([]);
+  const [isMemberCostumeOpen, setIsMemberCostumeOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogCostumes, setDialogCostumes] = useState<ICostume3D[]>([]);
+
+  useEffect(() => {
+    if (compactCostume3ds) {
+      const costumes: ICostume3D[] = [];
+      compactCostume3ds.characterId.forEach((id, idx) => {
+        if (
+          id === charaId &&
+          compactCostume3ds.__ENUM__.partType[
+            compactCostume3ds.partType[idx]
+          ] === "head"
+        ) {
+          costumes.push({
+            id: compactCostume3ds.id[idx],
+            seq: compactCostume3ds.seq[idx],
+            costume3dGroupId: compactCostume3ds.costume3dGroupId[idx],
+            costume3dType:
+              compactCostume3ds.__ENUM__.costume3dType[
+                compactCostume3ds.costume3dType[idx]
+              ],
+            name: compactCostume3ds.name[idx],
+            partType:
+              compactCostume3ds.__ENUM__.partType[
+                compactCostume3ds.partType[idx]
+              ],
+            colorId: compactCostume3ds.colorId[idx],
+            colorName: compactCostume3ds.colorName[idx],
+            characterId: charaId,
+            costume3dRarity:
+              compactCostume3ds.__ENUM__.costume3dRarity[
+                compactCostume3ds.costume3dRarity[idx]
+              ],
+            assetbundleName: compactCostume3ds.assetbundleName[idx],
+            designer: compactCostume3ds.designer[idx],
+            publishedAt: compactCostume3ds.publishedAt[idx] || 0,
+            archiveDisplayType:
+              compactCostume3ds.archiveDisplayType[idx] !== null
+                ? compactCostume3ds.__ENUM__.archiveDisplayType[
+                    compactCostume3ds.archiveDisplayType[idx]
+                  ]
+                : "",
+            archivePublishedAt: compactCostume3ds.archivePublishedAt[idx] || 0,
+          });
+        }
+      });
+      setCharaCostumes(costumes);
+    } else if (costume3ds?.length) {
+      setCharaCostumes(
+        costume3ds.filter(
+          (c3d) => c3d.characterId === charaId && c3d.partType === "head"
+        )
+      );
+    }
+  }, [charaId, costume3ds, compactCostume3ds]);
+
+  return (
+    <Fragment>
+      <Accordion
+        expanded={isMemberCostumeOpen}
+        onChange={(e, state) => setIsMemberCostumeOpen(state)}
+        slotProps={{ transition: { unmountOnExit: true } }}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <TypographyHeader>{t("common:head")}</TypographyHeader>
+        </AccordionSummary>
+        <AccordionDetails>
+          <GridOut container direction="row" spacing={2}>
+            {charaCostumes
+              .filter((cc) => cc.colorId === 1)
+              .map((cc) => (
+                <Grid item xs={3} md={2} lg={1} key={"costume-" + cc.id}>
+                  <Tooltip title={cc.name} placement="top">
+                    <Box
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setIsDialogOpen(true);
+                        setDialogCostumes(
+                          charaCostumes.filter(
+                            (c3d) =>
+                              cc.costume3dGroupId === c3d.costume3dGroupId
+                          )
+                        );
+                      }}
+                    >
+                      <ImageWrapper
+                        src={`thumbnail/costume_rip/${cc.assetbundleName}.webp`}
+                        region={region}
+                      />
+                    </Box>
+                  </Tooltip>
+                </Grid>
+              ))}
+          </GridOut>
+        </AccordionDetails>
+      </Accordion>
+      <MemberCostumeDialog
+        open={isDialogOpen}
+        onClose={() => {
+          setIsDialogOpen(false);
+          setDialogCostumes([]);
+        }}
+        costumes={dialogCostumes}
+        region={region}
+      />
+    </Fragment>
+  );
+};
 
 const MemberDetail: React.FC<unknown> = observer(() => {
   const { charaId } = useParams<{ charaId: string }>();
@@ -67,60 +465,64 @@ const MemberDetail: React.FC<unknown> = observer(() => {
   >([]);
   const [charaProfile, setCharaProfile] = useState<ICharaProfile>();
   const [charaCards, setCharaCards] = useState<ICardInfo[]>([]);
+  const [isMemberCardOpen, setIsMemberCardOpen] = useState(false);
   const [tabVal, setTabVal] = useState<string>("0");
   const [visible, setVisible] = useState<boolean>(false);
   const [activeIdx, setActiveIdx] = useState<number>(0);
 
   useEffect(() => {
-    if (
-      charas &&
-      charas.length &&
-      charaUnits &&
-      charaUnits.length &&
-      charaProfiles &&
-      charaProfiles.length &&
-      cards &&
-      cards.length &&
-      unitProfiles &&
-      unitProfiles.length
-    ) {
+    if (charas?.length) {
       const chara = charas.find((c) => c.id === Number(charaId));
-      const charaCards = cards.filter((card) => card.characterId === chara?.id);
       setChara(chara);
+    }
+  }, [charas, charaId]);
+
+  useEffect(() => {
+    if (chara && charaUnits?.length) {
       setCharaUnit(
         charaUnits.find(
-          (cu) => cu.gameCharacterId === chara?.id && cu.unit === chara?.unit
+          (cu) => cu.gameCharacterId === chara.id && cu.unit === chara.unit
         )
       );
-      // list support units if the character is a member of VIRTUAL SINGER
-      if (chara?.unit === "piapro") {
-        setCharaSupportUnits(
-          charaUnits
-            .filter(
-              (cu) => cu.gameCharacterId === chara.id && cu.unit !== "piapro"
+    }
+  }, [chara, charaUnits]);
+
+  useEffect(() => {
+    if (
+      chara?.unit === "piapro" &&
+      charaUnits?.length &&
+      unitProfiles?.length &&
+      charaCards.length
+    ) {
+      setCharaSupportUnits(
+        charaUnits
+          .filter(
+            (cu) => cu.gameCharacterId === chara.id && cu.unit !== "piapro"
+          )
+          .filter((cu) => charaCards.some((cc) => cc.supportUnit === cu.unit))
+          .map((cu) =>
+            Object.assign(
+              {},
+              cu,
+              unitProfiles.find((up) => up.unit === cu.unit)
             )
-            .filter((cu) => charaCards.some((cc) => cc.supportUnit === cu.unit))
-            .map((cu) =>
-              Object.assign(
-                {},
-                cu,
-                unitProfiles.find((up) => up.unit === cu.unit)
-              )
-            )
-        );
-      }
-      setCharaProfile(charaProfiles.find((cp) => cp.characterId === chara?.id));
+          )
+      );
+    }
+  }, [chara, charaUnits, charaCards, unitProfiles]);
+
+  useEffect(() => {
+    if (chara && charaProfiles && charaProfiles.length) {
+      setCharaProfile(charaProfiles.find((cp) => cp.characterId === chara.id));
+    }
+  }, [chara, charaProfiles]);
+
+  useEffect(() => {
+    if (chara && cards && cards.length) {
+      const charaCards = cards.filter((card) => card.characterId === chara.id);
       setCharaCards(charaCards);
     }
-  }, [
-    charas,
-    setChara,
-    charaId,
-    charaUnits,
-    charaProfiles,
-    cards,
-    unitProfiles,
-  ]);
+  }, [chara, cards]);
 
   useEffect(() => {
     document.title = t("title:memberDetail", {
@@ -446,17 +848,34 @@ const MemberDetail: React.FC<unknown> = observer(() => {
           </ContainerContent>
         </Fragment>
       ) : null}
-      <TypographyHeader>{t("common:card")}</TypographyHeader>
+      <TypographyHeader>{t("member:gameData")}</TypographyHeader>
       <ContainerContent maxWidth="lg">
-        <GridOut container direction="row" spacing={2}>
-          {charaCards.map((cc) => (
-            <Grid item xs={4} md={2} lg={1} key={"card-" + cc.id}>
-              <Link to={"/card/" + cc.id} style={{ textDecoration: "none" }}>
-                <CardThumb cardId={cc.id}></CardThumb>
-              </Link>
-            </Grid>
-          ))}
-        </GridOut>
+        <Accordion
+          expanded={isMemberCardOpen}
+          onChange={(e, state) => setIsMemberCardOpen(state)}
+          slotProps={{ transition: { unmountOnExit: true } }}
+        >
+          <AccordionSummary expandIcon={<ExpandMore />}>
+            <TypographyHeader>{t("common:card")}</TypographyHeader>
+          </AccordionSummary>
+          <AccordionDetails>
+            <GridOut container direction="row" spacing={2}>
+              {charaCards.map((cc) => (
+                <Grid item xs={4} md={2} lg={1} key={"card-" + cc.id}>
+                  <Link
+                    to={"/card/" + cc.id}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <CardThumb cardId={cc.id}></CardThumb>
+                  </Link>
+                </Grid>
+              ))}
+            </GridOut>
+          </AccordionDetails>
+        </Accordion>
+        <MemberCostumeAccordion charaId={chara.id} region={region} />
+        <MemberHairAccordion charaId={chara.id} region={region} />
+        <MemberHeadAccordion charaId={chara.id} region={region} />
       </ContainerContent>
       <Viewer
         visible={visible}
