@@ -5,7 +5,7 @@ import { ServerRegion } from "../../types.d";
 
 const ImageWrapper: React.FC<
   ImageProps & { directSrc?: boolean; region?: ServerRegion }
-> = ({ src, directSrc = false, region = "jp", ...props }) => {
+> = ({ src, directSrc = false, region = "jp", duration = 1000, ...props }) => {
   const [isReady, setIsReady] = useState(false);
   const [realSrc, setRealSrc] = useState(src);
 
@@ -30,7 +30,7 @@ const ImageWrapper: React.FC<
     [props, realSrc]
   );
 
-  return isReady ? <Image {...imageProps} /> : null;
+  return isReady ? <Image duration={duration} {...imageProps} /> : null;
 };
 
 export default ImageWrapper;
