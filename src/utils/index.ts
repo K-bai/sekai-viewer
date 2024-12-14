@@ -81,6 +81,7 @@ import {
   ISkillPracticeTicket,
   IBoostItem,
   ICompactCostume3DModel,
+  ICompactCostume3D,
 } from "./../types.d";
 import { useAssetI18n, useCharaName } from "./i18n";
 import { useLocation } from "react-router-dom";
@@ -185,8 +186,9 @@ export function useCompactData<
   T extends
     | ICompactResourceBox
     | ICompactResourceBoxDetail
-    | ICompactCostume3DModel,
->(name: string): [T | undefined, boolean, any] {
+    | ICompactCostume3DModel
+    | ICompactCostume3D,
+>(name: string): [T | undefined, boolean, unknown] {
   const { region } = useRootStore();
 
   const fetchCached = useCallback(async (name: string) => {

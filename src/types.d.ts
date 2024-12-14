@@ -1318,6 +1318,33 @@ export interface ICompactCostume3DModelEnum {
   headCostume3dAssetbundleType: string[];
 }
 
+export interface ICompactCostume3D {
+  howToObtain: Array<null | string>;
+  colorName: string[];
+  publishedAt: Array<number | null>;
+  archivePublishedAt: Array<number | null>;
+  colorId: number[];
+  costume3dType: number[];
+  designer: string[];
+  costume3dGroupId: number[];
+  __ENUM__: ICompactCostume3DEnum;
+  assetbundleName: string[];
+  costume3dRarity: number[];
+  name: string[];
+  archiveDisplayType: Array<number | null>;
+  id: number[];
+  characterId: number[];
+  partType: number[];
+  seq: number[];
+}
+
+export interface ICompactCostume3DEnum {
+  costume3dRarity: string[];
+  archiveDisplayType: string[];
+  costume3dType: string[];
+  partType: string[];
+}
+
 export interface IAreaItemLevel {
   areaItemId: number;
   level: number;
@@ -1575,6 +1602,8 @@ export interface ICostume3D {
   assetbundleName: string;
   designer: string;
   publishedAt: number;
+  archiveDisplayType: string;
+  archivePublishedAt: number;
 }
 
 export interface IEventMusic {
