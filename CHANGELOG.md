@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.13.3](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.2...v1.13.3) (2024-12-14)
+
+
+### Features
+
+* **member:** add costume data to member detail ([c40c79b](https://github.com/Sekai-World/sekai-viewer/commits/c40c79b0e3e7ba17319b06dca508b5bab3c59858))
+* **types:** add ICompactCostume3D and ICompactCostume3DEnum interfaces for costume data management ([2aaff71](https://github.com/Sekai-World/sekai-viewer/commits/2aaff71759ed459184746d9db77800fc3954d785))
+
+
+### Bug Fixes
+
+* **ImageWrapper:** add duration prop to Image component for smoother transitions ([6388506](https://github.com/Sekai-World/sekai-viewer/commits/6388506a4fd836f0c99268c34cb194ef8870cb6d))
+
 ### [1.13.2](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.1...v1.13.2) (2024-12-10)
 
 
