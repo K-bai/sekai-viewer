@@ -326,7 +326,7 @@ const DegreeImage: React.FC<
             <image
               key={idx}
               href={degreeLevelIcon}
-              x={54 + idx * 16}
+              x={50 + idx * 16}
               y="64"
               height="16"
               width="16"
@@ -339,7 +339,7 @@ const DegreeImage: React.FC<
             <image
               key={idx}
               href={degreeLevel6Icon}
-              x={54 + idx * 16}
+              x={50 + idx * 16}
               y="64"
               height="16"
               width="16"
@@ -349,10 +349,10 @@ const DegreeImage: React.FC<
         {degreeRankImage && (
           <image
             href={degreeRankImage}
-            x={isWorldLinkDegree ? 0 : sub ? 30 : 190}
-            y={isWorldLinkDegree ? 0 : sub ? 42 : 0}
-            width={isWorldLinkDegree ? (sub ? 180 : 380) : sub ? 120 : 150}
-            height={isWorldLinkDegree ? 80 : sub ? 38 : 78}
+            x={isWorldLinkDegree ? 0 : sub ? 11 : 200}
+            y={isWorldLinkDegree ? 0 : sub ? 40 : 0}
+            width={isWorldLinkDegree ? (sub ? 180 : 380) : sub ? 158 : 180}
+            height={isWorldLinkDegree ? 80 : sub ? 40 : 78}
           />
         )}
       </Svg>

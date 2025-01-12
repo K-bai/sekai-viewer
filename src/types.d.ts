@@ -1482,7 +1482,7 @@ export interface ICompactResourceBoxEnum {
   resourceBoxType: string[];
 }
 
-interface ICompactResourceBoxDetail {
+export interface ICompactResourceBoxDetail {
   __ENUM__: ICompactResourceBoxDetailENUM;
   resourceBoxId: number[];
   resourceQuantity: number[];

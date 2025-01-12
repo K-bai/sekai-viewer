@@ -107,7 +107,7 @@ const BondsDegreeImage: React.FC<
 
     useEffect(() => {
       if (honor && gameCharas.length) {
-        if (viewType === "normal") {
+        if (viewType?.startsWith("normal")) {
           getRemoteAssetURL(
             `bonds_honor/character/chr_sd_${String(
               gameCharas[0].gameCharacterId
@@ -128,7 +128,7 @@ const BondsDegreeImage: React.FC<
             "minio",
             region
           );
-        } else if (viewType === "reverse") {
+        } else if (viewType?.startsWith("reverse")) {
           getRemoteAssetURL(
             `bonds_honor/character/chr_sd_${String(
               gameCharas[1].gameCharacterId
@@ -163,7 +163,7 @@ const BondsDegreeImage: React.FC<
           const size = await getRemoteImageSize(sdLeft);
           setSdLeftHeight(sub ? size.height / 1.35 : size.height);
           setSdLeftWidth(sub ? size.width / 1.35 : size.width);
-          setSdLeftOffsetX(sub ? 28 : 20);
+          setSdLeftOffsetX(sub ? 26 : 20);
           setSdLeftOffsetY(sub ? 77 - size.height / 1.35 : 93 - size.height);
         }
       };
@@ -178,7 +178,7 @@ const BondsDegreeImage: React.FC<
           setSdRightHeight(sub ? size.height / 1.35 : size.height);
           setSdRightWidth(sub ? size.width / 1.35 : size.width);
           setSdRightOffsetX(
-            (sub ? 172 : 360) - (sub ? size.width / 1.35 : size.width)
+            (sub ? 160 : 360) - (sub ? size.width / 1.35 : size.width)
           );
           setSdRightOffsetY(sub ? 78 - size.height / 1.35 : 93 - size.height);
         }
@@ -282,7 +282,7 @@ const BondsDegreeImage: React.FC<
               <image
                 key={idx}
                 href={degreeLevelIcon}
-                x={sub ? 48 + idx * 14 : 54 + idx * 16}
+                x={50 + idx * 16}
                 y={64}
                 height={sub ? 14 : 16}
                 width={sub ? 14 : 16}
@@ -294,7 +294,7 @@ const BondsDegreeImage: React.FC<
               <image
                 key={idx}
                 href={degreeLevel6Icon}
-                x={sub ? 48 + idx * 14 : 54 + idx * 16}
+                x={50 + idx * 16}
                 y={64}
                 height={sub ? 14 : 16}
                 width={sub ? 14 : 16}
