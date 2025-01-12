@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.14.0](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.3...v1.14.0) (2025-01-12)
+
+
+### Features
+
+* **live2d:** fancy ui and text animation ([d1c01ec](https://github.com/Sekai-World/sekai-viewer/commits/d1c01ec55b3fe3ecf5a559e6ecb81da6be31c05b))
+* **live2d:** implement 56% SpecialEffect.ScenarioEffect ([96ada55](https://github.com/Sekai-World/sekai-viewer/commits/96ada5505b6a84a8b631ec91260c92cb964ac2f0))
+* **live2d:** implement character moving ([fc78b16](https://github.com/Sekai-World/sekai-viewer/commits/fc78b16cba410a394caa4fb80bac1c740e566d63))
+* **live2d:** implement shake & ambient color & wipe & sekai in/out effect ([7274ffa](https://github.com/Sekai-World/sekai-viewer/commits/7274ffadd2ee25abc3da452f080b263ed68467ec))
+* **live2d:** implement SpecialEffect Hologram ([c2a7534](https://github.com/Sekai-World/sekai-viewer/commits/c2a753434b811847c582b049f3b7a5fbc8d52182))
+* **live2d:** lipsync, simultaneous motions and expressions ([0298ef9](https://github.com/Sekai-World/sekai-viewer/commits/0298ef9b3ef60967c0d9007ea6e42057c3212545))
+* **live2d:** refactor motion name handling and update progress text keys ([454eaab](https://github.com/Sekai-World/sekai-viewer/commits/454eaab47707538fdec979bf8602ebd5f12be4aa))
+* reimplement live2d story reader ([76d3866](https://github.com/Sekai-World/sekai-viewer/commits/76d3866c271d1af1e466abbb79a3f43cb5a39b86))
+
+
+### Bug Fixes
+
+* **live2d:** event sound loading not properly & sound not clear ([ed54310](https://github.com/Sekai-World/sekai-viewer/commits/ed54310adbcfd64a6985d7ce8a305054da738030))
+* **live2d:** update x positions and offsets in BondsDegreeImage and DegreeImage components ([1aaace8](https://github.com/Sekai-World/sekai-viewer/commits/1aaace87c34f398d768fc75f837b43da7d76669c))
+
+
+### Refactors
+
+* **live2d:** animation classes ([b2db225](https://github.com/Sekai-World/sekai-viewer/commits/b2db225b892d4f365dab359e39cb906e05f198b8))
+* **live2d:** change some file name ([6e96e49](https://github.com/Sekai-World/sekai-viewer/commits/6e96e49c48b51b21418c1d4d9c8caad8e4ddc9fb))
+* upgrade pixi to v7, migrate to pixi-live2d-display-mulmotion ([5383b34](https://github.com/Sekai-World/sekai-viewer/commits/5383b34b154ff6e65ccc739c8f14bb1d254a0109))
+
 ### [1.13.3](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.2...v1.13.3) (2024-12-14)
 
 
