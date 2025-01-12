@@ -469,7 +469,7 @@ export async function getModelData(
     { responseType: "json" }
   );
   // step 3.3.2 - get motion data
-  const motionName = getMotionList(modelName);
+  const motionName = getMotionBaseName(modelName);
   let motionData;
   if (!modelName.startsWith("normal")) {
     const motionRes = await Axios.get<{
@@ -516,9 +516,9 @@ export async function getModelData(
   return model3Json;
 }
 // step 3.3.2 - get motion data
-function getMotionList(modelName: string): string {
+export function getMotionBaseName(modelName: string): string {
   let motionName = modelName;
-  if (!motionName.startsWith("v2_sub")) {
+  if (!motionName.startsWith("v2_sub") && !motionName.startsWith("sub_rival")) {
     if (motionName.endsWith("_black")) {
       motionName = motionName.slice(0, -6);
     } else if (motionName.endsWith("black")) {
@@ -533,6 +533,10 @@ function getMotionList(modelName: string): string {
     } else {
       motionName = motionName.split("_")[0]!;
     }
+  } else if (motionName?.startsWith("sub_rival")) {
+    motionName = motionName.split("_").slice(0, 3).join("_");
+  } else if (motionName?.startsWith("v2_sub_rival")) {
+    motionName = motionName.split("_").slice(0, 4).join("_");
   }
   return motionName + "_motion_base";
 }

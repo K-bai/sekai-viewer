@@ -116,7 +116,7 @@ const StoryReaderLive2DCanvas: React.FC<{
   //DEBUG
   /*
   const [inputStep, SetInputStep] = useState("");
-  
+
   const info = () => {
     if (!controllerData) return null;
     let ret = "";
@@ -142,7 +142,7 @@ const StoryReaderLive2DCanvas: React.FC<{
     }
     return ret;
   }
-  
+
   function apply_action () {
     stage.current?.controller.apply_action(scenarioStep);
   }
@@ -217,7 +217,7 @@ const StoryReaderLive2DCanvas: React.FC<{
       )}
       {loadStatus === LoadStatus.Loading && (
         <Typography>
-          {t("story_reader_live2d:loading_model_to_canvas")}
+          {t("story_reader_live2d:progress.load_model_to_canvas")}
         </Typography>
       )}
       <div ref={wrap}>

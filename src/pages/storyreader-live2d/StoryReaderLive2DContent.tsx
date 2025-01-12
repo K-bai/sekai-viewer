@@ -43,29 +43,29 @@ const StoryReaderLive2DContent: React.FC<{
 
   const loadButtonText = useMemo(() => {
     if (loadStatus === LoadStatus.Ready)
-      return t("story_reader_live2d:load_button_ready");
+      return t("story_reader_live2d:load_button.ready");
     if (loadStatus === LoadStatus.Loading)
-      return t("story_reader_live2d:load_button_loading");
+      return t("story_reader_live2d:load_button.loading");
     if (loadStatus === LoadStatus.Loaded)
-      return t("story_reader_live2d:load_button_loaded");
+      return t("story_reader_live2d:load_button.loaded");
   }, [loadStatus, t]);
 
   const handleProgress: IProgressEvent = (pt, count, total, info) => {
     if (pt === "model_data")
       setProgressText(
-        `${t("story_reader_live2d:progress_load_model_data")}: ${count}/${total} (${info})`
+        `${t("story_reader_live2d:progress.load_model_data")}: ${count}/${total} (${info})`
       );
     else if (pt === "media")
       setProgressText(
-        `${t("story_reader_live2d:progress_load_media")}: ${count}/${total} (${info})`
+        `${t("story_reader_live2d:progress.load_media")}: ${count}/${total} (${info})`
       );
     else if (pt === "model_assets")
       setProgressText(
-        `${t("story_reader_live2d:progress_load_model_assets")}: ${count}/${total} (${info})`
+        `${t("story_reader_live2d:progress.load_model_assets")}: ${count}/${total} (${info})`
       );
     else if (pt === "model_motion")
       setProgressText(
-        `${t("story_reader_live2d:progress_load_model_motion")}: ${count}/${total} (${info})`
+        `${t("story_reader_live2d:progress.load_model_motion")}: ${count}/${total} (${info})`
       );
     const order = [
       { pt: "media", ratio: 30 },
@@ -88,12 +88,12 @@ const StoryReaderLive2DContent: React.FC<{
   async function load() {
     setLoadStatus(LoadStatus.Loading);
     // step 1 - get scenario url
-    setProgressText(t("story_reader_live2d:progress_get_resource_url"));
+    setProgressText(t("story_reader_live2d:progress.get_resource_url"));
     const scenarioUrl = await getLive2DScenarioUrl(storyType, storyId, region);
     setLoadProgress(1);
     if (scenarioUrl) {
       // // step 2 - get scenario data
-      setProgressText(t("story_reader_live2d:progress_get_scenario_data"));
+      setProgressText(t("story_reader_live2d:progress.get_scenario_data"));
       scenarioData.current = await getProcessedLive2DScenarioData(
         scenarioUrl.url,
         region

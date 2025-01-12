@@ -43,6 +43,7 @@ import { Stage } from "@pixi/react";
 // import { settings } from "pixi.js";
 import Live2dModel from "../../components/pixi/Live2dModel";
 import { InternalModel, Live2DModel } from "pixi-live2d-display-mulmotion";
+import { getMotionBaseName } from "../../utils/Live2DPlayer/load";
 
 // settings.RESOLUTION = window.devicePixelRatio * 2;
 
@@ -391,27 +392,8 @@ const Live2DView: React.FC<unknown> = () => {
     setModelName(selectedModelName);
     let motionName = selectedModelName;
     if (!motionName) return;
-    console.log(motionName, motionName.startsWith("sub_rival"));
-    if (
-      !motionName.startsWith("v2_sub") &&
-      !motionName.startsWith("sub_rival")
-    ) {
-      if (motionName.endsWith("_black")) {
-        motionName = motionName.slice(0, -6);
-      } else if (motionName.endsWith("black")) {
-        motionName = motionName.slice(0, -5);
-      }
-      if (
-        motionName?.startsWith("sub") ||
-        motionName?.startsWith("clb") ||
-        motionName.match(/^v2_\d{2}.*/)
-      ) {
-        motionName = motionName.split("_").slice(0, 2).join("_");
-      } else {
-        motionName = motionName.split("_")[0]!;
-      }
-    }
-    setMotionName(motionName + "_motion_base");
+    motionName = getMotionBaseName(motionName);
+    setMotionName(motionName);
   }, [selectedModelName]);
 
   const onLive2dModelReady = useCallback(() => {
