@@ -225,7 +225,7 @@ const BondsDegreeImage: React.FC<
             height="80"
             width={sub ? 90 : 190}
             fill={
-              viewType === "normal"
+              viewType?.startsWith("normal")
                 ? gameCharas[0].colorCode
                 : gameCharas[1].colorCode
             }
@@ -237,7 +237,7 @@ const BondsDegreeImage: React.FC<
             height="80"
             width={sub ? 90 : 190}
             fill={
-              viewType === "normal"
+              viewType?.startsWith("normal")
                 ? gameCharas[1].colorCode
                 : gameCharas[0].colorCode
             }
