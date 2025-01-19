@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.1](https://github.com/Sekai-World/sekai-viewer/compare/v1.14.0...v1.14.1) (2025-01-19)
+
+
+### Bug Fixes
+
+* add missing voice finder ([013dcfe](https://github.com/Sekai-World/sekai-viewer/commits/013dcfeab508fbd03f69dcfaab890880be705abc))
+* add missing voice finder ([285594f](https://github.com/Sekai-World/sekai-viewer/commits/285594f963e01dfb97489e26fa84d984da04ce57))
+* add missing voice finder ([b1e4f3d](https://github.com/Sekai-World/sekai-viewer/commits/b1e4f3d56f966c141f231dac0edb0c11b7660b7f))
+* **honor:** update viewType check to use startsWith for normal state ([a154e9b](https://github.com/Sekai-World/sekai-viewer/commits/a154e9b7ea0f06f85f44eb50ee1af651abd67220))
+* **live2d:** cross origin policy are not set for images and sounds ([236e604](https://github.com/Sekai-World/sekai-viewer/commits/236e6046a78aa322981ac474e94eec6d94beda70))
+* remove package-lock.json ([616f82c](https://github.com/Sekai-World/sekai-viewer/commits/616f82c52f2482bca0396a432806ec2b727e673f))
+
 ## [1.14.0](https://github.com/Sekai-World/sekai-viewer/compare/v1.13.3...v1.14.0) (2025-01-12)
 
 
