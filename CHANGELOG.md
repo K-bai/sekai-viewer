@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.14.2](https://github.com/Sekai-World/sekai-viewer/compare/v1.14.1...v1.14.2) (2025-01-23)
+
+
+### Bug Fixes
+
+* refactor image extraction to use promise for better handling ([13eecdb](https://github.com/Sekai-World/sekai-viewer/commits/13eecdbf055bb24591578fe4a5fdae8fa6080838))
+
 ### [1.14.1](https://github.com/Sekai-World/sekai-viewer/compare/v1.14.0...v1.14.1) (2025-01-19)
 
 
